@@ -15,10 +15,8 @@ module Lib where
 
 import           Control.Lens         (makeLenses)
 import           Data.Default         (Default (..))
-import           Data.Proxy
 import           Data.Singletons.TH   (genSingletons)
 import           Data.Vinyl
-import           Data.Vinyl.TypeLevel
 
 -- * First Properties
 -- Let's define some constructors for simple properties of the music we're
@@ -76,15 +74,7 @@ instance Default (Rec f '[]) where
 instance (Default (f r), Default (Rec f rs)) => Default (Rec f (r ': rs)) where
   def = def :& def
 
--- recDef :: RecAll f rs Default => Rec proxy rs -> Rec f rs
--- recDef RNil = RNil
--- recDef (_ :& rs) = def :& recDef rs
-
--- instance (RecAll f rs Default, RecApplicative rs) => Default (Rec f rs) where
---   def = recDef (rpure Proxy)
-
--- c, d, e, f, g, a, b :: (Default (Attr r), Default (Rec Attr rs)) =>  Rec Attr ('PitchValue ': r ': rs)
-c, d, e, f, g, a, b :: (RecAll Attr rs Default) =>  Rec Attr ('PitchValue ': rs)
+c, d, e, f, g, a, b :: Default (Rec Attr rs) => Rec Attr ('PitchValue ': rs)
 c = (SPitchValue =:: C) :& def
 d = (SPitchValue =:: D) :& def
 e = (SPitchValue =:: E) :& def
@@ -93,6 +83,5 @@ g = (SPitchValue =:: G) :& def
 a = (SPitchValue =:: A) :& def
 b = (SPitchValue =:: B) :& def
 
--- chord :: [FugueNote]
--- chord = [c,e,g]
-
+chord :: [FugueNote]
+chord = [c,e,g]
