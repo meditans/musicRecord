@@ -11,6 +11,7 @@ packages:
 extra-deps:
 - basic-lens-0.0.0
 - record-0.4.0.2
+- CTRex-0.6
 
 # Override default flag values for local packages and extra-deps
 flags: {}
